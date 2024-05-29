@@ -45,7 +45,7 @@ O projeto **Reserva Lá** é uma aplicação que permite o gerenciamento de quar
      ```
    - Acesse a aplicação em `http://localhost:8080`
 
-3. **Endpoints da API:**
+## **Endpoints da API:**
    - CRUD de Quartos:
      - `GET /room`: Lista todos os quartos
      - `GET /room/{id}`: Retorna um quarto específico
