@@ -4,29 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1aaabcfc-bcc5-4390-81d5-c1368f490cc5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/reservala.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+    <list default="true" id="1aaabcfc-bcc5-4390-81d5-c1368f490cc5" name="Changes" comment="commit - mudanças pom.xml adição de dependencia RestAssured">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reservalaa/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/reservalaa/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reservalaa/src/test/java/br/com/ada/reservala/ReservalaApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/reservalaa/src/test/java/br/com/ada/reservala/ReservalaApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/ada/reservala/ReservalaApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/ada/reservala/controller/RoomController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/ada/reservala/domain/Room.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/ada/reservala/repository/RoomRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/ada/reservala/service/RoomService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/schema.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/br/com/ada/reservala/ReservalaApplicationTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +21,7 @@
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="develop" />
+        <entry key="$PROJECT_DIR$/reservalaa" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/reservalaa" />
@@ -161,6 +143,15 @@
       <option name="presentableId" value="Default" />
       <updated>1717087185578</updated>
     </task>
+    <task id="LOCAL-00001" summary="commit - mudanças pom.xml adição de dependencia RestAssured">
+      <option name="closed" value="true" />
+      <created>1717164548727</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1717164548727</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -173,6 +164,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="commit - mudanças pom.xml adição de dependencia RestAssured" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit - mudanças pom.xml adição de dependencia RestAssured" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
