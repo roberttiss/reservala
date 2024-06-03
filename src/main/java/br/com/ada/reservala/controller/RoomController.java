@@ -1,8 +1,13 @@
 package br.com.ada.reservala.controller;
 
-import br.com.ada.reservala.domain.Room;
+import br.com.ada.reservala.controller.dto.RoomDTORequest;
+import br.com.ada.reservala.controller.dto.RoomDTOResponse;
+import br.com.ada.reservala.controller.mapper.RoomMapper;
 import br.com.ada.reservala.service.RoomService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,41 +16,57 @@ import java.util.List;
 @RequestMapping("/room")
 public class RoomController {
 
-    public RoomController(RoomService roomService){
+    public RoomController(RoomService roomService, RoomMapper roomMapper){
         this.roomService = roomService;
+        this.roomMapper = roomMapper;
     }
 
-    RoomService roomService;
+    private final RoomService roomService;
+    private final RoomMapper roomMapper;
 
     @PostMapping
-    public ResponseEntity<Room> createRoom(@RequestBody Room room){
-        return ResponseEntity.ok(roomService.createRoom(room));
+    public ResponseEntity<RoomDTOResponse> createRoom(@Valid @RequestBody  RoomDTORequest newRoom){
+        var room = roomMapper.toEntity(newRoom);
+        var response = roomMapper.toDto(roomService.createRoom(room));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
     }
 
     @GetMapping
-    public ResponseEntity<List<Room>> readRoom(){
-        return ResponseEntity.ok(roomService.readRoom());
+    public ResponseEntity<List<RoomDTOResponse>> readRoom(){
+        var response = roomMapper.toDto(roomService.readRoom());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
     }
 
-    @PutMapping
-    public ResponseEntity<Room> updateRoom(@RequestBody Room room){
-
-        return ResponseEntity.ok(roomService.updateRoom(room));
+    @PutMapping("/{roomNumber}")
+    public ResponseEntity<RoomDTOResponse> updateRoom(@Valid @RequestBody RoomDTORequest newRoom, @PathVariable("roomNumber") Integer roomNumber){
+        var roomOptional = roomService.updateRoom(roomMapper.toEntity(newRoom),roomNumber);
+        return roomOptional
+            .map(room -> {
+                    var dto = roomMapper.toDto(room);
+                    return ResponseEntity.ok(dto);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping
     @RequestMapping("/{roomNumber}")
-    public ResponseEntity<Void> deleteRoom(@PathVariable("roomNumber") Integer roomNumber){
+    public ResponseEntity<Void> deleteRoom(@Validated @PathVariable("roomNumber") Integer roomNumber){
         roomService.deleteRoom(roomNumber);
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/ocupation")
     public ResponseEntity<Double> getOcupation(){
         return ResponseEntity.ok(roomService.getOcupation());
     }
 
+    @GetMapping("/revenue")
     public ResponseEntity<Double> getRevenue(){
-        return ResponseEntity.ok(roomService.getOcupation());
+        return ResponseEntity.ok(roomService.getRevenue());
     }
 
 }
