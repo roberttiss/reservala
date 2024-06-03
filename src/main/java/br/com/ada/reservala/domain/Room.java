@@ -1,51 +1,29 @@
 package br.com.ada.reservala.domain;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+@Builder
 public class Room {
 
+    @NotNull
+    @Min(1)
     private Integer roomNumber;
+
+    @NotBlank
     private String type;
+
+    @NotNull
+    @Min(3)
     private Integer price;
-    private Boolean available;
 
-    public Room() {
-    }
+    @NotNull
+    private Boolean avalaible;
 
-    public Room(Integer roomNumber, String type, Integer price, Boolean available) {
-        this.roomNumber = roomNumber;
-        this.type = type;
-        this.price = price;
-        this.available = available;
-    }
-
-    public Integer getRoomNumber() {
-        return roomNumber;
-    }
-
-    public void setRoomNumber(Integer roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Boolean available) {
-        this.available = available;
-    }
 }
