@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1aaabcfc-bcc5-4390-81d5-c1368f490cc5" name="Changes" comment="commit - mudanças pom.xml adição de dependencia RestAssured">
+    <list default="true" id="1aaabcfc-bcc5-4390-81d5-c1368f490cc5" name="Changes" comment="Commit - criaçao dos testes, validação API Get">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reservalaa/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/reservalaa/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reservalaa/src/test/java/br/com/ada/reservala/ReservalaApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/reservalaa/src/test/java/br/com/ada/reservala/ReservalaApplicationTests.java" afterDir="false" />
@@ -51,20 +52,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Pichau/IdeaProjects/reservala/reservalaa/pom.xml",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "MavenSettings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Pichau/IdeaProjects/reservala/reservalaa/pom.xml&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="JUnit.ReservalaApplicationTests.contextLoads">
+}</component>
+  <component name="RunManager" selected="JUnit.ReservalaApplicationTests.avaliableValidation">
     <configuration name="ReservalaApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.ReservalaApplication" />
       <module name="reservala" />
@@ -78,7 +79,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ReservalaApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ReservalaApplicationTests.avaliableValidation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="reservala" />
       <extension name="coverage">
         <pattern>
@@ -88,7 +89,8 @@
       </extension>
       <option name="PACKAGE_NAME" value="br.com.ada.reservala" />
       <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.ReservalaApplicationTests" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="METHOD_NAME" value="avaliableValidation" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -109,7 +111,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ReservalaApplicationTests.validationGetRooms" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ReservalaApplicationTests.numberRoomValidation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="reservala" />
       <extension name="coverage">
         <pattern>
@@ -119,7 +121,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="br.com.ada.reservala" />
       <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.ReservalaApplicationTests" />
-      <option name="METHOD_NAME" value="validationGetRooms" />
+      <option name="METHOD_NAME" value="numberRoomValidation" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReservalaApplicationTests.typeValidation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="reservala" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.ada.reservala.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="br.com.ada.reservala" />
+      <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.ReservalaApplicationTests" />
+      <option name="METHOD_NAME" value="typeValidation" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -127,10 +145,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ReservalaApplicationTests.contextLoads" />
+        <item itemvalue="JUnit.ReservalaApplicationTests.avaliableValidation" />
+        <item itemvalue="JUnit.ReservalaApplicationTests.typeValidation" />
+        <item itemvalue="JUnit.ReservalaApplicationTests.numberRoomValidation" />
         <item itemvalue="Application.ReservalaApplication" />
-        <item itemvalue="JUnit.ReservalaApplicationTests" />
-        <item itemvalue="JUnit.ReservalaApplicationTests.validationGetRooms" />
+        <item itemvalue="JUnit.ReservalaApplicationTests.contextLoads" />
       </list>
     </recent_temporary>
   </component>
@@ -151,7 +170,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717164548727</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Commit - criaçao dos testes, validação API Get">
+      <option name="closed" value="true" />
+      <created>1717362670007</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1717362670007</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -167,7 +194,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit - mudanças pom.xml adição de dependencia RestAssured" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit - mudanças pom.xml adição de dependencia RestAssured" />
+    <MESSAGE value="Commit - criaçao dos testes, validação API Get" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit - criaçao dos testes, validação API Get" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
