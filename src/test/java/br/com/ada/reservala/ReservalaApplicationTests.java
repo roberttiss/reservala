@@ -3,6 +3,9 @@ package br.com.ada.reservala;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Collections;
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalToObject;
 import static org.hamcrest.Matchers.is;
@@ -15,7 +18,7 @@ class ReservalaApplicationTests {
 
 	@Test
 	void numberRoomValidation() {
-		int roomNumber = 0;
+		List<Integer> roomNumber = Collections.singletonList(7);
 
 		given()
 				.when().get("http://localhost:8080/room")
@@ -26,8 +29,8 @@ class ReservalaApplicationTests {
 
 	@Test
 	void typeValidation() {
-		String roomtype = "Solteiro";
 
+		List<String> roomtype = Collections.singletonList("Solteiro");
 		given()
 				.when().get("http://localhost:8080/room")
 				.then()
@@ -37,7 +40,7 @@ class ReservalaApplicationTests {
 
 	@Test
 	void priceValidation() {
-		int  roomPrice = 500;
+		List<Integer> roomPrice = Collections.singletonList(500);
 
 		given()
 				.when().get("http://localhost:8080/room")
@@ -48,12 +51,12 @@ class ReservalaApplicationTests {
 
 	@Test
 	void avaliableValidation() {
-		boolean  roomAvaliable = true;
+		List<Boolean> roomPrice = Collections.singletonList(true);
 
 		given()
 				.when().get("http://localhost:8080/room")
 				.then()
-				.body("avaliable", is(equalToObject(roomAvaliable)))
+				.body("avaliable", is(equalToObject(roomPrice)))
 				.assertThat().statusCode(200);
 	}
 
