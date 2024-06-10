@@ -12,9 +12,9 @@ CREATE TABLE IF NOT EXISTS client (
 );
 
 CREATE TABLE IF NOT EXISTS reservation (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY,
     idClient INT,
     roomNumber INT,
     checkIn DATE,
-    checkOut DATE,
+    checkOut DATE
 );
