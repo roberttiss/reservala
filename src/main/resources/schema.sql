@@ -10,3 +10,11 @@ CREATE TABLE IF NOT EXISTS client (
     name VARCHAR(255),
     age INT
 );
+
+CREATE TABLE IF NOT EXISTS reservation (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    idClient INT,
+    roomNumber INT,
+    checkIn DATE,
+    checkOut DATE,
+);
