@@ -36,7 +36,7 @@ public class RoomRepository {
         RowMapper<Room> rowMapper = ((rs, rowNum) -> new Room(
                 rs.getInt("roomNumber"),
                 rs.getString("type"),
-                rs.getInt("price"),
+                rs.getBigDecimal("price"),
                 rs.getBoolean("avalaible")
         ));
         return jdbcTemplate.query(readSQL, rowMapper);
@@ -57,11 +57,11 @@ public class RoomRepository {
         jdbcTemplate.update(deleteSQL, roomNumber);
     }
 
-    public Double count(){
+    public Double getNumberOfRooms(){
         return jdbcTemplate.queryForObject("select count(*) from room", Double.class);
     }
 
-    public Double countOccupied(){
+    public Double getNumberOfOccupiedRooms(){
         return jdbcTemplate.queryForObject("select count(*) from room where avalaible = false", Double.class);
     }
 
@@ -69,8 +69,14 @@ public class RoomRepository {
         return jdbcTemplate.queryForObject("select sum(price) from room", Double.class);
     }
 
-    public Integer existsRoomNumber(Integer roomNumber){
-        return jdbcTemplate.queryForObject("select count(*) from room where roomNumber = ?", Integer.class,roomNumber);
+    public Boolean roomExists(Integer roomNumber){
+        Integer count = jdbcTemplate.queryForObject("select count(*) from room where roomNumber = ?", Integer.class,roomNumber);
+        return count != null && count > 0;
+    }
+
+    public boolean roomIsAvalaible(Integer roomNumber){
+        Integer count =  jdbcTemplate.queryForObject("select count(*) from room where roomNumber = ? and avalaible = true", Integer.class,roomNumber);
+        return count != null && count > 0;
     }
 
 }

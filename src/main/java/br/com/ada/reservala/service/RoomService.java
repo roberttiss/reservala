@@ -30,25 +30,25 @@ public class RoomService {
     }
 
     public Optional<Room> updateRoom(Room room, Integer roomNumber) {
-        if (roomRepository.existsRoomNumber(roomNumber) == 0){
+        if (!roomRepository.roomExists(roomNumber)){
             throw new RoomNotFoundException("Room with number " + roomNumber + " not found.");
         }
         return Optional.of(roomRepository.updateRoom(room,roomNumber));
     }
 
     public void deleteRoom(Integer roomNumber){
-        if (roomRepository.existsRoomNumber(roomNumber) == 0){
+        if (!roomRepository.roomExists(roomNumber)){
             throw new RoomNotFoundException("Room with number " + roomNumber + " not found.");
         }
         roomRepository.deleteRoom(roomNumber);
     }
 
     public Double getOcupation(){
-        double allRoms = roomRepository.count();
+        double allRoms = roomRepository.getNumberOfRooms();
         if(allRoms == 0){
             return 0.0;
         }
-        double ocupiedRooms = roomRepository.countOccupied();
+        double ocupiedRooms = roomRepository.getNumberOfOccupiedRooms();
         return (ocupiedRooms / allRoms) * 100;
     }
 
