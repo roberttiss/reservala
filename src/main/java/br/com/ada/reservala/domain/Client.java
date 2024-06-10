@@ -19,8 +19,4 @@ public class Client {
     private String name;
     @NotNull
     private int age;
-//    @NotNull
-//    private int yearBirth;
-//    @OneToMany(mappedBy = "client")
-//    private List<Reservation> reservations;
 }
