@@ -4,7 +4,6 @@ import br.com.ada.reservala.controller.dto.ClientDTORequest;
 import br.com.ada.reservala.controller.dto.ClientDTOResponse;
 import br.com.ada.reservala.controller.mapper.ClientMapper;
 import br.com.ada.reservala.service.ClientService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +23,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<ClientDTOResponse> createClient(@Valid @RequestBody ClientDTORequest newClient){
+    public ResponseEntity<ClientDTOResponse> createClient(@RequestBody ClientDTORequest newClient){
         var client = clientMapper.toEntity(newClient);
         var response = clientMapper.toDto(clientService.createClient(client));
         return ResponseEntity
@@ -41,7 +40,7 @@ public class ClientController {
     }
 
     @PutMapping("/{idClient}")
-    public ResponseEntity<ClientDTOResponse> updateClient(@Valid @RequestBody ClientDTORequest newClient, @PathVariable("idClient") Integer idClient){
+    public ResponseEntity<ClientDTOResponse> updateClient(@RequestBody ClientDTORequest newClient, @PathVariable("idClient") Integer idClient){
         var clientOptional = clientService.updateClient(clientMapper.toEntity(newClient), idClient);
         return clientOptional
                 .map(client -> {

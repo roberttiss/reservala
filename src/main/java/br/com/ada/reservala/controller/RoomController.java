@@ -4,10 +4,8 @@ import br.com.ada.reservala.controller.dto.RoomDTORequest;
 import br.com.ada.reservala.controller.dto.RoomDTOResponse;
 import br.com.ada.reservala.controller.mapper.RoomMapper;
 import br.com.ada.reservala.service.RoomService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +23,7 @@ public class RoomController {
     private final RoomMapper roomMapper;
 
     @PostMapping
-    public ResponseEntity<RoomDTOResponse> createRoom(@Valid @RequestBody  RoomDTORequest newRoom){
+    public ResponseEntity<RoomDTOResponse> createRoom(@RequestBody  RoomDTORequest newRoom){
         var room = roomMapper.toEntity(newRoom);
         var response = roomMapper.toDto(roomService.createRoom(room));
         return ResponseEntity
@@ -42,7 +40,7 @@ public class RoomController {
     }
 
     @PutMapping("/{roomNumber}")
-    public ResponseEntity<RoomDTOResponse> updateRoom(@Valid @RequestBody RoomDTORequest newRoom, @PathVariable("roomNumber") Integer roomNumber){
+    public ResponseEntity<RoomDTOResponse> updateRoom(@RequestBody RoomDTORequest newRoom, @PathVariable("roomNumber") Integer roomNumber){
         var roomOptional = roomService.updateRoom(roomMapper.toEntity(newRoom),roomNumber);
         return roomOptional
             .map(room -> {
@@ -54,7 +52,7 @@ public class RoomController {
 
     @DeleteMapping
     @RequestMapping("/{roomNumber}")
-    public ResponseEntity<Void> deleteRoom(@Validated @PathVariable("roomNumber") Integer roomNumber){
+    public ResponseEntity<Void> deleteRoom(@PathVariable("roomNumber") Integer roomNumber){
         roomService.deleteRoom(roomNumber);
         return ResponseEntity.noContent().build();
     }

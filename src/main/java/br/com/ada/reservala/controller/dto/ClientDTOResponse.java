@@ -9,11 +9,7 @@ import java.util.List;
 @Data
 @Builder
 public class ClientDTOResponse {
-
     private int idClient;
     private String name;
     private int age;
-    private int yearBirth;
-    private List<Reservation> reservations;
-
 }
