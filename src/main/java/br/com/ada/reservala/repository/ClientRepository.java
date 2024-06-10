@@ -54,7 +54,8 @@ public class ClientRepository {
         jdbcTemplate.update(deleteSQL,idClient);
     }
 
-    public Integer existsClient(Integer idClient){
-        return jdbcTemplate.queryForObject("select count(*) from client where id = ?", Integer.class,idClient);
+    public Boolean existsClient(Integer idClient){
+        Integer count =  jdbcTemplate.queryForObject("select count(*) from client where id = ?", Integer.class,idClient);
+        return count != null && count > 0;
     }
 }

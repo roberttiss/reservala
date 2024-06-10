@@ -26,14 +26,14 @@ public class ClientService {
     }
 
     public Optional<Client> updateClient(Client client, Integer idClient){
-        if (clientRepository.existsClient(idClient) == 0){
+        if (!clientRepository.existsClient(idClient)){
             throw new ClientNotFoundException("Client with id " + idClient + " not found.");
         }
         return Optional.of(clientRepository.udpateClient(client,idClient));
     }
 
     public void deleteClient(Integer idClient){
-        if (clientRepository.existsClient(idClient) == 0){
+        if (!clientRepository.existsClient(idClient)){
             throw new ClientNotFoundException("Client with id " + idClient + " not found.");
         }
         clientRepository.deleteClient(idClient);
