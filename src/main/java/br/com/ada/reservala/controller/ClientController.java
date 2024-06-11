@@ -40,6 +40,20 @@ public class ClientController {
                 .body(response);
     }
 
+    @GetMapping("{idClient}")
+    public ResponseEntity<ClientDTOResponse> readClientById(@PathVariable("idClient") Integer idClient){
+        var clientOptional = clientService.redClientById(idClient);
+        if (clientOptional.isPresent()){
+            var response = clientMapper.toDto(clientOptional.get());
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(response);
+        }
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .build();
+    }
+
     @PutMapping("/{idClient}")
     public ResponseEntity<ClientDTOResponse> updateClient(@RequestBody ClientDTORequest newClient, @PathVariable("idClient") Integer idClient){
         var clientOptional = clientService.updateClient(clientMapper.toEntity(newClient), idClient);

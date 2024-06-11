@@ -29,6 +29,13 @@ public class ClientService {
         return clientRepository.readClient();
     }
 
+    public Optional<Client> redClientById(Integer idClient){
+        if (!clientRepository.existsClient(idClient)){
+            throw new ClientNotFoundException("Client with id " + idClient + " not found.");
+        }
+        return Optional.of(clientRepository.readClientById(idClient));
+    }
+
     public Optional<Client> updateClient(Client client, Integer idClient){
         if (!clientRepository.existsClient(idClient)){
             throw new ClientNotFoundException("Client with id " + idClient + " not found.");

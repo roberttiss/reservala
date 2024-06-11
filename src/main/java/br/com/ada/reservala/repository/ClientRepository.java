@@ -1,11 +1,16 @@
 package br.com.ada.reservala.repository;
 
 import br.com.ada.reservala.domain.Client;
+import br.com.ada.reservala.domain.Reservation;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +54,17 @@ public class ClientRepository {
         return jdbcTemplate.query(readSQL,rowMapper);
     }
 
+    public Client readClientById(int idClient){
+    RowMapper<Client> rowMapper = ((rs, rowNum) -> new Client(
+            rs.getInt("id"),
+            rs.getString("name"),
+            rs.getInt("age")
+    ));
+
+    String sql = "select * from client where id = ?";
+
+    return jdbcTemplate.queryForObject(sql, rowMapper, idClient);
+}
     public Client udpateClient(Client client, Integer idClient){
         jdbcTemplate.update(
                 updateSQL,
