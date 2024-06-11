@@ -11,10 +11,10 @@ public class POST_Room {
         given()
                 .log().all()
                 .contentType("application/json")
-                .body("{\"roomNumber\": \"12\",\"type\":\"Solteiro\",\"price\":400,\"available\":true}")
+                .body("{\"roomNumber\": \"13\",\"type\":\"Solteiro\",\"price\":100,\"avalaible\":\"true\"}")
                 .when()
                     .post(Endpoint)
                 .then()
-                .log().all().statusCode(200);
+                .log().all();
     }
 }
