@@ -16,7 +16,7 @@ public class RoomRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private String createSQL = "insert into room(roomNumber,type, price, avalaible) values (?, ?, ?, ?)";
+    private String createSQL = "insert into room(roomNumber,type, price, available) values (?, ?, ?, ?)";
     private String readSQL = "select * from room";
     private String updateSQL = "update room set type = ?, price = ?, avalaible = ? where roomNumber = ? ";
     private String deleteSQL = "delete from room where roomNumber = ? ";
@@ -31,7 +31,7 @@ public class RoomRepository {
                 room.getRoomNumber(),
                 room.getType(),
                 room.getPrice(),
-                room.getAvalaible()
+                room.getAvailable()
         );
         return room;
     }
@@ -41,7 +41,7 @@ public class RoomRepository {
                 rs.getInt("roomNumber"),
                 rs.getString("type"),
                 rs.getBigDecimal("price"),
-                rs.getBoolean("avalaible")
+                rs.getBoolean("available")
         ));
         return jdbcTemplate.query(readSQL, rowMapper);
     }
@@ -51,7 +51,7 @@ public class RoomRepository {
                 rs.getInt("roomNumber"),
                 rs.getString("type"),
                 rs.getBigDecimal("price"),
-                rs.getBoolean("avalaible")
+                rs.getBoolean("available")
         ));
 
         PreparedStatementCreator psc = new PreparedStatementCreator() {
@@ -70,7 +70,7 @@ public class RoomRepository {
                 updateSQL,
                 room.getType(),
                 room.getPrice(),
-                room.getAvalaible(),
+                room.getAvailable(),
                 roomNumber
         );
         return room;
@@ -98,7 +98,7 @@ public class RoomRepository {
     }
 
     public boolean roomIsAvalaible(Integer roomNumber){
-        Integer count =  jdbcTemplate.queryForObject("select count(*) from room where roomNumber = ? and avalaible = true", Integer.class,roomNumber);
+        Integer count =  jdbcTemplate.queryForObject("select count(*) from room where roomNumber = ? and available = true", Integer.class,roomNumber);
         return count != null && count > 0;
     }
 

@@ -13,6 +13,6 @@ public class Room {
     private Integer roomNumber;
     private String type;
     private BigDecimal price;
-    private Boolean avalaible;
+    private Boolean available;
 
 }
