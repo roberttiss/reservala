@@ -16,7 +16,7 @@ public class RoomMapper {
                 .roomNumber(dto.getRoomNumber())
                 .type(dto.getType())
                 .price(dto.getPrice())
-                .avalaible(dto.getAvalaible())
+                .available(dto.getAvailable())
                 .build();
     }
 
@@ -31,7 +31,7 @@ public class RoomMapper {
                 .roomNumber(entity.getRoomNumber())
                 .type(entity.getType())
                 .price(entity.getPrice())
-                .avalaible(entity.getAvalaible())
+                .available(entity.getAvailable())
                 .build();
     }
 }
