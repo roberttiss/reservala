@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<ClientDTOResponse> createClient(@RequestBody ClientDTORequest newClient){
+    public ResponseEntity<ClientDTOResponse> createClient(@Valid @RequestBody ClientDTORequest newClient){
         var client = clientMapper.toEntity(newClient);
         var response = clientMapper.toDto(clientService.createClient(client));
         return ResponseEntity

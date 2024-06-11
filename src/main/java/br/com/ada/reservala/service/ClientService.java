@@ -2,6 +2,7 @@ package br.com.ada.reservala.service;
 
 import br.com.ada.reservala.domain.Client;
 import br.com.ada.reservala.exception.ClientNotFoundException;
+import br.com.ada.reservala.exception.IdAlreadyExistsException;
 import br.com.ada.reservala.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ public class ClientService {
     }
 
     public Client createClient(Client client){
+        if (clientRepository.existsClient(client.getIdClient())){
+            throw new IdAlreadyExistsException("Client with id " + client.getIdClient() +" already exists.");
+        }
         return clientRepository.createClient(client);
     }
 
