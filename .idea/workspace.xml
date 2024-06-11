@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1aaabcfc-bcc5-4390-81d5-c1368f490cc5" name="Changes" comment="Commit - criaçao dos testes, validação API Get">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="1aaabcfc-bcc5-4390-81d5-c1368f490cc5" name="Changes" comment="Commit - Problema com dependencias resolvido. Testes da API get funcionando">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservalaa/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/reservalaa/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reservalaa/src/test/java/br/com/ada/reservala/ReservalaApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/reservalaa/src/test/java/br/com/ada/reservala/ReservalaApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -17,6 +16,13 @@
   </component>
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -65,79 +71,82 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.ReservalaApplicationTests.avaliableValidation">
-    <configuration name="ReservalaApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.ReservalaApplication" />
+  <component name="RunManager" selected="JUnit.PUT_Room.RoomUpdate">
+    <configuration name="GET_RoomWithParams.GetRoom (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="reservala" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="br.com.ada.reservala.*" />
+          <option name="PATTERN" value="br.com.ada.reservala.Quartos.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ReservalaApplicationTests.avaliableValidation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="reservala" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="br.com.ada.reservala.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="br.com.ada.reservala" />
-      <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.ReservalaApplicationTests" />
-      <option name="METHOD_NAME" value="avaliableValidation" />
+      <option name="PACKAGE_NAME" value="br.com.ada.reservala.Quartos" />
+      <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.Quartos.GET_RoomWithParams" />
+      <option name="METHOD_NAME" value="GetRoom" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ReservalaApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GET_Room.numberRoomValidation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="reservala" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="br.com.ada.reservala.*" />
+          <option name="PATTERN" value="br.com.ada.reservala.Quartos.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="br.com.ada.reservala" />
-      <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.ReservalaApplicationTests" />
-      <option name="METHOD_NAME" value="contextLoads" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ReservalaApplicationTests.numberRoomValidation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="reservala" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="br.com.ada.reservala.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="br.com.ada.reservala" />
-      <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.ReservalaApplicationTests" />
+      <option name="PACKAGE_NAME" value="br.com.ada.reservala.Quartos" />
+      <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.Quartos.GET_Room" />
       <option name="METHOD_NAME" value="numberRoomValidation" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ReservalaApplicationTests.typeValidation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="POST_Room.CreateRoom (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="reservala" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="br.com.ada.reservala.*" />
+          <option name="PATTERN" value="br.com.ada.reservala.Quartos.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="br.com.ada.reservala" />
-      <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.ReservalaApplicationTests" />
-      <option name="METHOD_NAME" value="typeValidation" />
+      <option name="PACKAGE_NAME" value="br.com.ada.reservala.Quartos" />
+      <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.Quartos.POST_Room" />
+      <option name="METHOD_NAME" value="CreateRoom" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="POST_Room.CreateRoom" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="reservala" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.ada.reservala.Quartos.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="br.com.ada.reservala.Quartos" />
+      <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.Quartos.POST_Room" />
+      <option name="METHOD_NAME" value="CreateRoom(java.lang.String,java.lang.String,int,java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PUT_Room.RoomUpdate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="reservala" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.ada.reservala.Quartos.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="br.com.ada.reservala.Quartos" />
+      <option name="MAIN_CLASS_NAME" value="br.com.ada.reservala.Quartos.PUT_Room" />
+      <option name="METHOD_NAME" value="RoomUpdate" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -145,11 +154,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ReservalaApplicationTests.avaliableValidation" />
-        <item itemvalue="JUnit.ReservalaApplicationTests.typeValidation" />
-        <item itemvalue="JUnit.ReservalaApplicationTests.numberRoomValidation" />
-        <item itemvalue="Application.ReservalaApplication" />
-        <item itemvalue="JUnit.ReservalaApplicationTests.contextLoads" />
+        <item itemvalue="JUnit.PUT_Room.RoomUpdate" />
+        <item itemvalue="JUnit.GET_RoomWithParams.GetRoom (1)" />
+        <item itemvalue="JUnit.GET_Room.numberRoomValidation" />
+        <item itemvalue="JUnit.POST_Room.CreateRoom (1)" />
+        <item itemvalue="JUnit.POST_Room.CreateRoom" />
       </list>
     </recent_temporary>
   </component>
@@ -178,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717362670007</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Commit - Problema com dependencias resolvido. Testes da API get funcionando">
+      <option name="closed" value="true" />
+      <created>1717803492931</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1717803492931</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -195,7 +212,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit - mudanças pom.xml adição de dependencia RestAssured" />
     <MESSAGE value="Commit - criaçao dos testes, validação API Get" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit - criaçao dos testes, validação API Get" />
+    <MESSAGE value="Commit - Problema com dependencias resolvido. Testes da API get funcionando" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit - Problema com dependencias resolvido. Testes da API get funcionando" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
