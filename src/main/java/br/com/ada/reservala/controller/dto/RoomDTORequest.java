@@ -27,6 +27,6 @@ public class RoomDTORequest {
     @Digits(integer = 3, fraction = 3, message = "price should not have more than 3 integer and 3 fraction digits")
     private BigDecimal price;
 
-    @NotNull(message = "avalaible cannot be null")
+    @NotNull(message = "available cannot be null")
     private Boolean available;
 }
