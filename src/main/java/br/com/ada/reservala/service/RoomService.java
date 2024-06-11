@@ -1,6 +1,7 @@
 package br.com.ada.reservala.service;
 
 import br.com.ada.reservala.domain.Room;
+import br.com.ada.reservala.exception.IdAlreadyExistsException;
 import br.com.ada.reservala.exception.RoomNotFoundException;
 import br.com.ada.reservala.repository.RoomRepository;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,9 @@ public class RoomService {
     }
 
     public Room createRoom(Room room){
-//        if (roomRepository.existsRoomNumber(room.getRoomNumber()) > 0){
-//            throw new RoomNotFoundException("Room with number " + room.getRoomNumber() + " already exists.");
-//        }
+        if (roomRepository.roomExists(room.getRoomNumber())){
+            throw new IdAlreadyExistsException("Room with number " + room.getRoomNumber() + " already exists.");
+        }
         return roomRepository.createRoom(room);
     }
 
