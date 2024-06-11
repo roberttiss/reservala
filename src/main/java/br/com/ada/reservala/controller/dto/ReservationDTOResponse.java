@@ -11,8 +11,8 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 public class ReservationDTOResponse {
-    private int idClient;
     private int idReservation;
+    private int idClient;
     private int roomNumber;
     private LocalDate checkIn;
     private LocalDate checkOut;

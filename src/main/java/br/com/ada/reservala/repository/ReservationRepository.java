@@ -4,6 +4,7 @@ import br.com.ada.reservala.domain.Reservation;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
 public class ReservationRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -27,7 +29,7 @@ public class ReservationRepository {
     public Reservation createReservation(Reservation reservation){
         jdbcTemplate.update(
                 createSQL,
-                reservation.getId(),
+                reservation.getIdReservation(),
                 reservation.getIdClient(),
                 reservation.getRoomNumber(),
                 reservation.getCheckIn(),
@@ -80,14 +82,19 @@ public class ReservationRepository {
         return reservation;
     }
 
-    public void deleteReservation(Integer id){
+    public void deleteReservation(Integer idReservation){
         jdbcTemplate.update(
-                deleteSQL,id
+                deleteSQL,idReservation
         );
     }
 
     public LocalDate getCheckouDate(int roomNumber){
         return jdbcTemplate.queryForObject("select checkOut from reservation where roomNumber = ? order by checkOut desc limit 1", LocalDate.class,roomNumber);
+    }
+
+    public Boolean existsReservation(int idReservation){
+        Integer count = jdbcTemplate.queryForObject("select count (*) from reservation where id = ?", Integer.class,idReservation);
+        return count != null && count > 0;
     }
 
 
