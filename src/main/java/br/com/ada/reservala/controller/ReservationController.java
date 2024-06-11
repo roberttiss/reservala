@@ -10,4 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReservationController {
     private ReservationService reservationService;
     private ReservationMapper reservationMapper;
+
+    public ReservationController(ReservationMapper reservationMapper, ReservationService reservationService) {
+        this.reservationMapper = reservationMapper;
+        this.reservationService = reservationService;
+    }
 }

@@ -13,6 +13,6 @@ public class RoomDTOResponse {
     private Integer roomNumber;
     private String type;
     private BigDecimal price;
-    private Boolean avalaible;
+    private Boolean available;
 
 }

@@ -28,5 +28,5 @@ public class RoomDTORequest {
     private BigDecimal price;
 
     @NotNull(message = "avalaible cannot be null")
-    private Boolean avalaible;
+    private Boolean available;
 }
