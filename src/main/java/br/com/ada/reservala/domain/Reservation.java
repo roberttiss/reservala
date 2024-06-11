@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 public class Reservation {
-    private int id;
+    private int idReservation;
     private int idClient;
     private int roomNumber;
     private LocalDate checkIn;
