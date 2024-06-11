@@ -1,6 +1,6 @@
 # Reserva Lá - Sistema de Gerenciamento de Quartos e Reservas de Hotel
 
-O projeto **Reserva Lá** é uma aplicação que permite o gerenciamento de quartos de hotel, reservas, relatórios de ocupação e receitas. Ele foi desenvolvido utilizando Java 21, Spring Boot e um banco de dados em memória H2. Além disso, os testes automatizados são realizados com as bibliotecas Mockito e JUnit.
+O projeto **Reserva Lá** é uma aplicação que permite o gerenciamento de quartos de hotel, reservas, relatórios de ocupação e receitas. Ele foi desenvolvido utilizando Java 21, Spring Boot e um banco de dados em memória H2. Além disso, os testes automatizados são realizados com as bibliotecas Mockito,JUnit e REST Assured.
 
 ## Funcionalidades
 
