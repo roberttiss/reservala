@@ -63,10 +63,10 @@ public class ReservationService {
     }
 
     public Optional<Reservation> updateReservation(Reservation reservation, Integer idReservation){
-        if (!reservationRepository.existsReservation(reservation.getIdReservation())){
-            throw new ReservationNotFoundException("Reservation with id " + reservation.getIdReservation() + " not found.");
+        if (!reservationRepository.existsReservation(idReservation)){
+            throw new ReservationNotFoundException("Reservation with id " + idReservation + " not found.");
         }
         return Optional.of(reservationRepository.updateReservation(reservation,idReservation));
-    }
+}
 
 }

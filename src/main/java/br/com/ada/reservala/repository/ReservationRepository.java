@@ -102,7 +102,7 @@ public class ReservationRepository {
                 reservation.getCheckOut(),
                 idReservation
         );
-        return reservation;
+        return readReservationByReservationId(idReservation);
     }
 
     public void deleteReservation(Integer idReservation){
@@ -124,7 +124,7 @@ public class ReservationRepository {
         }
     }
 
-    public Boolean existsReservation(int idReservation){
+    public Boolean existsReservation(Integer idReservation){
         Integer count = jdbcTemplate.queryForObject("select count (*) from reservation where id = ?", Integer.class,idReservation);
         return count != null && count > 0;
     }
