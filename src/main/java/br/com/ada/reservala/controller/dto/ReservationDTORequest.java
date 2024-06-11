@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -15,8 +17,10 @@ public class ReservationDTORequest {
     @NotNull(message = "id of client cannot be null and must exist")
     private int idClient;
 
-    @NotNull(message = "room of number cannot be null")
-    private int roomNumber;
+    @NotNull(message = "number of room cannot be null")
+    @Min(value = 1,message = "number of room should not be less than 1")
+    @Digits(integer = 3, fraction = 0, message = "number of room should be an integer")
+    private Integer roomNumber;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate checkIn;
