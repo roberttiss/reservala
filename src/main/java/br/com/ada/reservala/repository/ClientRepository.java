@@ -1,11 +1,13 @@
 package br.com.ada.reservala.repository;
 
 import br.com.ada.reservala.domain.Client;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientRepository {
@@ -22,12 +24,19 @@ public class ClientRepository {
     }
 
     public Client createClient(Client client){
+        int id;
+        if (getLastInsertedId().isEmpty()){
+            id = 1;
+        } else {
+            id = getLastInsertedId().get() + 1;
+        }
         jdbcTemplate.update(
                 createSQL,
-                client.getIdClient(),
+                id,
                 client.getName(),
                 client.getAge()
         );
+        client.setIdClient(id);
         return client;
     }
 
@@ -52,6 +61,15 @@ public class ClientRepository {
 
     public void deleteClient(Integer idClient){
         jdbcTemplate.update(deleteSQL,idClient);
+    }
+
+    public Optional<Integer> getLastInsertedId(){
+        try{
+            Integer lastId = jdbcTemplate.queryForObject("select max(id) from reservation", Integer.class);
+            return Optional.ofNullable(lastId);
+        } catch (EmptyResultDataAccessException e){
+            return Optional.empty();
+        }
     }
 
     public Boolean existsClient(Integer idClient){
