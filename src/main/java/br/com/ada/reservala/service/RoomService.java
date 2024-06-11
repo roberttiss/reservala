@@ -30,6 +30,13 @@ public class RoomService {
         return roomRepository.readRoom();
     }
 
+    public List<Room> readRoomByRoomNumber(Integer roomNumber) {
+    if (!roomRepository.roomExists(roomNumber)){
+        throw new RoomNotFoundException("Room with number " + roomNumber + " not found.");
+    }
+    return roomRepository.readRoomByRoomNumber(roomNumber);
+}
+
     public Optional<Room> updateRoom(Room room, Integer roomNumber) {
         if (!roomRepository.roomExists(roomNumber)){
             throw new RoomNotFoundException("Room with number " + roomNumber + " not found.");

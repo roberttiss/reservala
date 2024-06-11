@@ -40,6 +40,14 @@ public class RoomController {
                 .body(response);
     }
 
+    @GetMapping("/{roomNumber}")
+    public ResponseEntity<List<RoomDTOResponse>> readRoomByRoomNumber(@PathVariable("roomNumber") Integer roomNumber){
+        var response = roomMapper.toDto(roomService.readRoomByRoomNumber(roomNumber));
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(response);
+}
+
     @PutMapping("/{roomNumber}")
     public ResponseEntity<RoomDTOResponse> updateRoom(@RequestBody RoomDTORequest newRoom, @PathVariable("roomNumber") Integer roomNumber){
         var roomOptional = roomService.updateRoom(roomMapper.toEntity(newRoom),roomNumber);

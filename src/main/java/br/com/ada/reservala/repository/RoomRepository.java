@@ -2,9 +2,13 @@ package br.com.ada.reservala.repository;
 
 import br.com.ada.reservala.domain.Room;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -40,6 +44,25 @@ public class RoomRepository {
                 rs.getBoolean("avalaible")
         ));
         return jdbcTemplate.query(readSQL, rowMapper);
+    }
+
+    public List<Room> readRoomByRoomNumber(Integer roomNumber){
+        RowMapper<Room> rowMapper = ((rs, rowNum) -> new Room(
+                rs.getInt("roomNumber"),
+                rs.getString("type"),
+                rs.getBigDecimal("price"),
+                rs.getBoolean("avalaible")
+        ));
+
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps = con.prepareStatement("select * from room where roomNumber = ?");
+                ps.setInt(1,roomNumber);
+                return ps;
+            }
+        };
+        return jdbcTemplate.query(psc,rowMapper);
     }
 
     public Room updateRoom(Room room, Integer roomNumber){
