@@ -47,7 +47,7 @@ public class RoomRepository {
         return jdbcTemplate.query(readSQL, rowMapper);
     }
 
-    public List<Room> readRoomByRoomNumber(Integer roomNumber){
+    public Room readRoomByRoomNumber(Integer roomNumber){
         RowMapper<Room> rowMapper = ((rs, rowNum) -> new Room(
                 rs.getInt("roomNumber"),
                 rs.getString("type"),
@@ -55,15 +55,9 @@ public class RoomRepository {
                 rs.getBoolean("available")
         ));
 
-        PreparedStatementCreator psc = new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement("select * from room where roomNumber = ?");
-                ps.setInt(1,roomNumber);
-                return ps;
-            }
-        };
-        return jdbcTemplate.query(psc,rowMapper);
+        String sql = "select * from room where roomNumber = ?";
+
+        return jdbcTemplate.queryForObject(sql,rowMapper,roomNumber);
     }
 
     public Room updateRoom(Room room, Integer roomNumber){
@@ -74,7 +68,7 @@ public class RoomRepository {
                 room.getAvailable(),
                 roomNumber
         );
-        return room;
+        return readRoomByRoomNumber(roomNumber);
     }
 
     public void setAvailableFalseRoom(Integer roomNumber){

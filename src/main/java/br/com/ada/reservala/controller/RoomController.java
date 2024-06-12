@@ -41,7 +41,7 @@ public class RoomController {
     }
 
     @GetMapping("/{roomNumber}")
-    public ResponseEntity<List<RoomDTOResponse>> readRoomByRoomNumber(@PathVariable("roomNumber") Integer roomNumber){
+    public ResponseEntity<RoomDTOResponse> readRoomByRoomNumber(@PathVariable("roomNumber") Integer roomNumber){
         var response = roomMapper.toDto(roomService.readRoomByRoomNumber(roomNumber));
         return ResponseEntity
             .status(HttpStatus.OK)

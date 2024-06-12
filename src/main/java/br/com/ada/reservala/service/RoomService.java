@@ -28,7 +28,7 @@ public class RoomService {
         return roomRepository.readRoom();
     }
 
-    public List<Room> readRoomByRoomNumber(Integer roomNumber) {
+    public Room readRoomByRoomNumber(Integer roomNumber) {
         roomNoExists(roomNumber,new RoomNotFoundException("Room with number " + roomNumber + " not found."));
         return roomRepository.readRoomByRoomNumber(roomNumber);
 }
