@@ -18,7 +18,8 @@ public class RoomRepository {
 
     private String createSQL = "insert into room(roomNumber,type, price, available) values (?, ?, ?, ?)";
     private String readSQL = "select * from room";
-    private String updateSQL = "update room set type = ?, price = ?, avalaible = ? where roomNumber = ? ";
+    private String updateSQL = "update room set type = ?, price = ?, available = ? where roomNumber = ? ";
+    private String updateAvailableSQL = "update room set available = ? where roomNumber = ? ";
     private String deleteSQL = "delete from room where roomNumber = ? ";
 
     public RoomRepository(JdbcTemplate jdbcTemplate) {
@@ -76,16 +77,20 @@ public class RoomRepository {
         return room;
     }
 
+    public void setAvailableFalseRoom(Integer roomNumber){
+        jdbcTemplate.update(
+                updateAvailableSQL,
+                false,
+                roomNumber
+        );
+    }
+
     public void deleteRoom(Integer roomNumber){
         jdbcTemplate.update(deleteSQL, roomNumber);
     }
 
-    public Double getNumberOfRooms(){
-        return jdbcTemplate.queryForObject("select count(*) from room", Double.class);
-    }
-
-    public Double getNumberOfOccupiedRooms(){
-        return jdbcTemplate.queryForObject("select count(*) from room where avalaible = false", Double.class);
+    public Double getOcupation(){
+        return jdbcTemplate.queryForObject("SELECT (COUNT(*) FILTER (WHERE available = false) / COUNT(*)) * 100 FROM room", Double.class);
     }
 
     public Double countRevenue(){
