@@ -1,4 +1,4 @@
-package br.com.ada.reservala.Quartos;
+package br.com.ada.reservala.RoomController;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

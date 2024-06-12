@@ -1,11 +1,9 @@
-package br.com.ada.reservala.Quartos;
+package br.com.ada.reservala.RoomController;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalToObject;
 import static org.hamcrest.Matchers.is;
@@ -17,12 +15,17 @@ public class GET_Room {
     //Testes End Point /room post
     @Test
     void numberRoomValidation() {
-        //List<Integer> roomNumber = Collections.singletonList(11);
         List<Integer> roomNumber = new ArrayList<>();
-        roomNumber.add(11);
-        roomNumber.add(12);
-        roomNumber.add(13);
-        roomNumber.add(14);
+        roomNumber.add(101);
+        roomNumber.add(102);
+        roomNumber.add(103);
+        roomNumber.add(104);
+        roomNumber.add(105);
+        roomNumber.add(106);
+        roomNumber.add(107);
+        roomNumber.add(108);
+        roomNumber.add(109);
+        roomNumber.add(110);
 
 
         given()
@@ -36,10 +39,16 @@ public class GET_Room {
 
         //List<String> roomtype = Collections.singletonList("Solteiro");
         List<String> roomtype = new ArrayList<>();
-        roomtype.add("Solteiro");
-        roomtype.add("Solteiro");
-        roomtype.add("Solteiro");
-        roomtype.add("Solteiro");
+        roomtype.add("Single");
+        roomtype.add("Double");
+        roomtype.add("Suite");
+        roomtype.add("Single");
+        roomtype.add("Double");
+        roomtype.add("Suite");
+        roomtype.add("Single");
+        roomtype.add("Double");
+        roomtype.add("Suite");
+        roomtype.add("Single");
 
         given()
                 .when().get("http://localhost:8080/room")
@@ -52,10 +61,17 @@ public class GET_Room {
        // List<Integer> roomPrice = Collections.singletonList(400);
 
         List<Integer> roomPrice = new ArrayList<>();
-        roomPrice.add(400);
-        roomPrice.add(400);
-        roomPrice.add(400);
-        roomPrice.add(400);
+        roomPrice.add(100);
+        roomPrice.add(200);
+        roomPrice.add(300);
+        roomPrice.add(100);
+        roomPrice.add(200);
+        roomPrice.add(300);
+        roomPrice.add(100);
+        roomPrice.add(200);
+        roomPrice.add(300);
+        roomPrice.add(100);
+
 
 
         given()
@@ -68,10 +84,19 @@ public class GET_Room {
     void avaliableValidation() {
 
         List<Boolean> roomAvaliable = new ArrayList<>();
-        roomAvaliable.add(false);
-        roomAvaliable.add(false);
-        roomAvaliable.add(false);
-        roomAvaliable.add(false);
+        roomAvaliable.add(true);
+        roomAvaliable.add(true);
+        roomAvaliable.add(true);
+        roomAvaliable.add(true);
+        roomAvaliable.add(true);
+        roomAvaliable.add(true);
+        roomAvaliable.add(true);
+        roomAvaliable.add(true);
+        roomAvaliable.add(true);
+        roomAvaliable.add(true);
+
+
+
 
         given()
                 .when().get("http://localhost:8080/room")
@@ -79,20 +104,5 @@ public class GET_Room {
                 .body("available", is(equalToObject(roomAvaliable)))
                 .assertThat().statusCode(200);
     }
-    @Test
-    void numberRoomValidationn() {
-        //List<Integer> roomNumber = Collections.singletonList(7);
-        List<Integer> roomNumber = new ArrayList<>();
-        roomNumber.add(11);
-        roomNumber.add(12);
-        roomNumber.add(13);
-        roomNumber.add(14);
 
-        given()
-                .queryParam("roomNumber", "7")
-                .when().get("http://localhost:8080/room")
-                .then()
-                .body("roomNumber", is(equalToObject(roomNumber)))
-                .assertThat().statusCode(200);
-    }
 }
