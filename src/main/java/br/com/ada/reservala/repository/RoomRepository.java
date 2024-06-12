@@ -79,7 +79,7 @@ public class RoomRepository {
     }
 
     public Double getOcupation(){
-        return jdbcTemplate.queryForObject("SELECT (COUNT(*) FILTER (WHERE available = false) / COUNT(*)) * 100 FROM room", Double.class);
+        return jdbcTemplate.queryForObject("SELECT (COUNT(*) FILTER (WHERE available = false) * 100.0 / COUNT(*)) FROM room", Double.class);
     }
 
     public Double countRevenue(){

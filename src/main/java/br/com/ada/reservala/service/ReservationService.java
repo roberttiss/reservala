@@ -4,6 +4,7 @@ import br.com.ada.reservala.domain.Reservation;
 import br.com.ada.reservala.exception.*;
 import br.com.ada.reservala.repository.ReservationRepository;
 import br.com.ada.reservala.repository.RoomRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,7 +19,7 @@ public class ReservationService {
     private final RoomService roomService;
     private final ClientService clientService;
 
-    public ReservationService(ReservationRepository repository, RoomService roomService, ClientService clientService, RoomRepository roomRepository) {
+    public ReservationService(ReservationRepository repository, @Lazy RoomService roomService, @Lazy ClientService clientService, @Lazy RoomRepository roomRepository) {
         this.reservationRepository = repository;
         this.roomService = roomService;
         this.roomRepository = roomRepository;
@@ -26,16 +27,17 @@ public class ReservationService {
     }
 
     public Reservation createReservation(Reservation reservation){
-        clientService.existsNoClient(reservation.getIdClient(), new ClientNotFoundException("Client with id " + reservation.getIdClient() + " not found."));
-        roomService.roomNoExists(reservation.getRoomNumber(),new RoomNotFoundException("Room with number " + reservation.getRoomNumber() + " not found."));
-        roomService.roomIsAvalaible(reservation.getRoomNumber(),new RoomNotAvailableException("Room with number " + reservation.getRoomNumber() + " not found."));
-        verifyRoomIsAvailableInDateRequested(reservation.getRoomNumber(), reservation);
-        verifyDateIsBeforeNow(reservation);
+        clientService.checkIfClientDoesNotExist(reservation.getIdClient());
+        roomService.checkIfRoomDoesNotExists(reservation.getRoomNumber());
+        roomService.checkIfRoomDoesNotAvailable(reservation.getRoomNumber());
+        checkIfRoomIsAvailableInDateRequested(reservation.getRoomNumber(), reservation);
+        checkIfCheckInIsBeforeToday(reservation);
+        checkIfCheckoutIsBeforeCheckIn(reservation);
 
         int id = reservationRepository.getLastInsertedId().orElse(0) + 1;
         reservation.setIdReservation(id);
 
-        verifyDateIsNow(reservation);
+        checkIfReservationStartsToday(reservation);
 
         return reservationRepository.createReservation(reservation);
     }
@@ -49,39 +51,57 @@ public class ReservationService {
     }
 
     public Optional<Reservation> readReservationByReservationId(Integer idReservation){
-        verifyReservationExists(idReservation);
+        checkIfReservationDoesNotExist(idReservation);
         return Optional.of(reservationRepository.readReservationByReservationId(idReservation));
     }
 
     public void deleteReservation(Integer idReservation){
-        verifyReservationExists(idReservation);
+        checkIfReservationDoesNotExist(idReservation);
         reservationRepository.deleteReservation(idReservation);
     }
 
     public Optional<Reservation> updateReservation(Reservation reservation, Integer idReservation){
-        verifyReservationExists(idReservation);
+        checkIfReservationDoesNotExist(idReservation);
         return Optional.of(reservationRepository.updateReservation(reservation,idReservation));
     }
 
-    private void verifyReservationExists(int idReservartion) {
-        if (!reservationRepository.existsReservation(idReservartion)){
-            throw new ReservationNotFoundException("Reservation with id " + idReservartion + " not found.");
+    private void checkIfReservationDoesNotExist(int idReservation) {
+        if (!reservationRepository.existsReservation(idReservation)){
+                ExceptionThrower.throwReservationNotFoundException("Reservation with id " + idReservation + " not exist.");
         }
     }
 
-    private void verifyDateIsNow(Reservation reservation){
+    private void checkIfReservationStartsToday(Reservation reservation){
         if (reservation.getCheckIn().equals(LocalDate.now())){
             roomRepository.setAvailableFalseRoom(reservation.getRoomNumber());
         }
     }
 
-    private void verifyDateIsBeforeNow(Reservation reservation){
+    public void checkIfCheckInIsBeforeToday(Reservation reservation){
         if (reservation.getCheckIn().isBefore(LocalDate.now())){
-            throw new RoomNotAvailableException("Select a date for reservation from " + LocalDate.now() + ".");
+            ExceptionThrower.throwReservationFailedException("Select a date for reservation from " + LocalDate.now() + ".");
         }
     }
 
-    private void verifyRoomIsAvailableInDateRequested(int roomNumber, Reservation reservation) {
+    public void checkIfCheckoutIsBeforeCheckIn(Reservation reservation){
+        if (reservation.getCheckOut().isBefore(reservation.getCheckIn())){
+            ExceptionThrower.throwReservationFailedException("Check-out date cannot be before check-in date");
+        }
+    }
+
+    public void checkIfClientHasReservation(Integer idClient){
+        if (reservationRepository.clientHasReservation(idClient)){
+            ExceptionThrower.throwClientHasReservationException("is not possible to delete a client if there is a reservation assigned to them");
+        }
+    }
+
+    public void checkIfRoomHasReservation(Integer roomNumber){
+        if (reservationRepository.roomHasReservation(roomNumber)){
+            ExceptionThrower.throwRoomHasReservationException("is not possible to delete a room if there is a reservation assigned to them");
+        }
+    }
+
+    private void checkIfRoomIsAvailableInDateRequested(int roomNumber, Reservation reservation) {
             List<LocalDate> datesCheckIn = reservationRepository.getCheckIn(roomNumber);
             List<LocalDate> datesCheckOut = reservationRepository.getCheckOut(roomNumber);
             LocalDate checkOut = reservation.getCheckOut();
@@ -89,7 +109,7 @@ public class ReservationService {
                     for (LocalDate dateCheckOut: datesCheckOut){
                         boolean flagOut = checkOut.isBefore(dateCheckOut) | checkOut.equals(dateCheckOut) && checkOut.isAfter(dateCheckIn);
                             if (flagOut){
-                                throw new RoomNotAvailableException("Room with number " + roomNumber + " not available in date specific");
+                                ExceptionThrower.throwRoomNotAvailableException("Room with number " + roomNumber + " not available in date specific");
                             }
                     }
                 }

@@ -1,8 +1,7 @@
 package br.com.ada.reservala.service;
 
 import br.com.ada.reservala.domain.Room;
-import br.com.ada.reservala.exception.IdAlreadyExistsException;
-import br.com.ada.reservala.exception.RoomNotFoundException;
+import br.com.ada.reservala.exception.ExceptionThrower;
 import br.com.ada.reservala.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +13,15 @@ import java.util.Optional;
 public class RoomService {
 
     private final RoomRepository roomRepository;
+    private final ReservationService reservationService;
 
-    public RoomService(RoomRepository roomRepository){
+    public RoomService(RoomRepository roomRepository, ReservationService reservationService){
         this.roomRepository = roomRepository;
+        this.reservationService = reservationService;
     }
 
     public Room createRoom(Room room){
-        roomExists(room.getRoomNumber(),new IdAlreadyExistsException("Room with number " + room.getRoomNumber() + " already exists."));
+        checkIfRoomExists(room.getRoomNumber());
         return roomRepository.createRoom(room);
     }
 
@@ -29,35 +30,36 @@ public class RoomService {
     }
 
     public Room readRoomByRoomNumber(Integer roomNumber) {
-        roomNoExists(roomNumber,new RoomNotFoundException("Room with number " + roomNumber + " not found."));
+        checkIfRoomDoesNotExists(roomNumber);
         return roomRepository.readRoomByRoomNumber(roomNumber);
 }
 
     public Optional<Room> updateRoom(Room room, Integer roomNumber) {
-        roomNoExists(roomNumber,new RoomNotFoundException("Room with number " + roomNumber + " not found."));
+        checkIfRoomDoesNotExists(roomNumber);
         return Optional.of(roomRepository.updateRoom(room,roomNumber));
     }
 
     public void deleteRoom(Integer roomNumber){
-        roomNoExists(roomNumber,new RoomNotFoundException("Room with number " + roomNumber + " not found."));
+        checkIfRoomDoesNotExists(roomNumber);
+        reservationService.checkIfRoomHasReservation(roomNumber);
         roomRepository.deleteRoom(roomNumber);
     }
 
-    public void roomExists(Integer roomNumber, RuntimeException exception){
+    public void checkIfRoomExists(Integer roomNumber){
         if (roomRepository.roomExists(roomNumber)){
-            throw exception;
+            ExceptionThrower.throwIdAlreadyExistsException("Room with id " + roomNumber + " already exist.");
         }
     }
 
-    public void roomNoExists(Integer roomNumber, RuntimeException exception){
+    public void checkIfRoomDoesNotExists(Integer roomNumber){
         if (!roomRepository.roomExists(roomNumber)){
-            throw exception;
+            ExceptionThrower.throwRoomNotFoundException("Room with id " + roomNumber + " not exist.");
         }
     }
 
-    public void roomIsAvalaible(Integer roomNumber, RuntimeException exception){
+    public void checkIfRoomDoesNotAvailable(Integer roomNumber){
         if (!roomRepository.roomIsAvalaible(roomNumber)){
-            throw exception;
+            ExceptionThrower.throwRoomNotAvailableException("Room with id " + roomNumber + " is not available.");
         }
     }
 

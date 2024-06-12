@@ -1,8 +1,7 @@
 package br.com.ada.reservala.service;
 
 import br.com.ada.reservala.domain.Client;
-import br.com.ada.reservala.exception.ClientNotFoundException;
-import br.com.ada.reservala.exception.IdAlreadyExistsException;
+import br.com.ada.reservala.exception.ExceptionThrower;
 import br.com.ada.reservala.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +12,15 @@ import java.util.Optional;
 public class ClientService {
 
     private final ClientRepository clientRepository;
+    private final ReservationService reservationService;
 
-    public ClientService(ClientRepository clientRepository){
+    public ClientService(ClientRepository clientRepository, ReservationService reservationService){
         this.clientRepository = clientRepository;
+        this.reservationService = reservationService;
     }
 
     public Client createClient(Client client){
-        existsClient(client.getIdClient(), new IdAlreadyExistsException("Client with id " + client.getIdClient() +" already exists."));
+//        checkIfClientExist(client.getIdClient());
         int id = clientRepository.getLastInsertedId().orElse(0) + 1;
         client.setIdClient(id);
         return clientRepository.createClient(client);
@@ -30,29 +31,24 @@ public class ClientService {
     }
 
     public Optional<Client> redClientById(Integer idClient){
-        existsNoClient(idClient,new ClientNotFoundException("Client with id " + idClient + " not found."));
+        checkIfClientDoesNotExist(idClient);
         return Optional.of(clientRepository.readClientById(idClient));
     }
 
     public Optional<Client> updateClient(Client client, Integer idClient){
-        existsNoClient(idClient,new ClientNotFoundException("Client with id " + idClient + " not found."));
+        checkIfClientDoesNotExist(idClient);
         return Optional.of(clientRepository.udpateClient(client,idClient));
     }
 
     public void deleteClient(Integer idClient){
-        existsNoClient(idClient,new ClientNotFoundException("Client with id " + idClient + " not found."));
+        checkIfClientDoesNotExist(idClient);
+        reservationService.checkIfClientHasReservation(idClient);
         clientRepository.deleteClient(idClient);
     }
 
-    public void existsClient(int idClient, RuntimeException exception)  {
-        if (clientRepository.existsClient(idClient)){
-            throw exception;
-        }
-    }
-
-    public void existsNoClient(int idClient, RuntimeException exception)  {
+    public void checkIfClientDoesNotExist(int idClient)  {
         if (!clientRepository.existsClient(idClient)){
-            throw exception;
+            ExceptionThrower.throwClientNotFoundException("Client with id " + idClient + " not exist.");
         }
     }
 
