@@ -26,8 +26,8 @@ public class ReservationService {
     }
 
     public Reservation createReservation(Reservation reservation){
-        clientService.existsClient(reservation.getIdClient(), new ClientNotFoundException("Client with id " + reservation.getIdClient() + " not found."));
-        roomService.roomExists(reservation.getRoomNumber(),new RoomNotFoundException("Room with number " + reservation.getRoomNumber() + " not found."));
+        clientService.existsNoClient(reservation.getIdClient(), new ClientNotFoundException("Client with id " + reservation.getIdClient() + " not found."));
+        roomService.roomNoExists(reservation.getRoomNumber(),new RoomNotFoundException("Room with number " + reservation.getRoomNumber() + " not found."));
         roomService.roomIsAvalaible(reservation.getRoomNumber(),new RoomNotAvailableException("Room with number " + reservation.getRoomNumber() + " not found."));
         verifyRoomIsAvailableInDateRequested(reservation.getRoomNumber(), reservation);
         verifyDateIsBeforeNow(reservation);
