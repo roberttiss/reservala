@@ -115,6 +115,16 @@ public class ReservationRepository {
         return count != null && count > 0;
     }
 
+    public Boolean clientHasReservation(Integer idClient){
+        Integer count = jdbcTemplate.queryForObject("select count (*) from reservation where idClient = ?", Integer.class,idClient);
+        return count != null && count > 0;
+    }
+
+    public Boolean roomHasReservation(Integer roomNumber){
+        Integer count = jdbcTemplate.queryForObject("select count (*) from reservation where roomNumber = ?", Integer.class,roomNumber);
+        return count != null && count > 0;
+    }
+
     public List<LocalDate> getCheckIn(Integer roomNumber){
         String sql = "select * from reservation where roomNumber = ?";
         RowMapper<LocalDate> rowMapper = (rs, rowNum) -> rs.getDate("checkIn").toLocalDate();
