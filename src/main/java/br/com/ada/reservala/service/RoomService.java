@@ -50,7 +50,7 @@ public class RoomService {
     }
 
     public void roomIsAvalaible(Integer roomNumber, RuntimeException exception){
-        if (!roomRepository.roomExists(roomNumber)){
+        if (!roomRepository.roomIsAvalaible(roomNumber)){
             throw exception;
         }
     }
