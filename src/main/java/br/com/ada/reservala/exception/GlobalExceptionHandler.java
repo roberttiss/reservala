@@ -27,6 +27,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
+    @ExceptionHandler(RoomNotAvailableException.class)
+    public ResponseEntity<String> roomNotAvailableException(RoomNotAvailableException ex){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handledMethodArgumentNotValidException(MethodArgumentNotValidException ex){
         String mesage = ex.getBindingResult().getAllErrors().stream()
