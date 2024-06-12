@@ -7,9 +7,8 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import javax.management.Query;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -29,21 +28,14 @@ public class ReservationRepository {
     }
 
     public Reservation createReservation(Reservation reservation){
-        int id;
-        if (getLastInsertedId().isEmpty()){
-            id = 1;
-        } else {
-            id = getLastInsertedId().get() + 1;
-        }
         jdbcTemplate.update(
                 createSQL,
-                id,
+                reservation.getIdReservation(),
                 reservation.getIdClient(),
                 reservation.getRoomNumber(),
                 reservation.getCheckIn(),
                 reservation.getCheckOut()
         );
-        reservation.setIdReservation(id);
         return reservation;
     }
 
@@ -128,6 +120,24 @@ public class ReservationRepository {
         Integer count = jdbcTemplate.queryForObject("select count (*) from reservation where id = ?", Integer.class,idReservation);
         return count != null && count > 0;
     }
+
+    public List<LocalDate> getCheckIn(Integer roomNumber){
+        String sql = "select * from reservation where roomNumber = ?";
+        RowMapper<LocalDate> rowMapper = (rs, rowNum) -> rs.getDate("checkIn").toLocalDate();
+
+        List<LocalDate> listCheckIn = jdbcTemplate.query(sql,rowMapper,roomNumber);
+        return listCheckIn;
+    }
+
+    public List<LocalDate> getCheckOut(Integer roomNumber){
+        String sql = "select * from reservation where roomNumber = ?";
+        RowMapper<LocalDate> rowMapper = (rs, rowNum) -> rs.getDate("checkOut").toLocalDate();
+
+        List<LocalDate> listCheckOut = jdbcTemplate.query(sql,rowMapper,roomNumber);
+        return listCheckOut;
+    }
+
+
 
 
 }

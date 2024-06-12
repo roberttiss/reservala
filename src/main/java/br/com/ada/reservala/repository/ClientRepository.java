@@ -29,19 +29,12 @@ public class ClientRepository {
     }
 
     public Client createClient(Client client){
-        int id;
-        if (getLastInsertedId().isEmpty()){
-            id = 1;
-        } else {
-            id = getLastInsertedId().get() + 1;
-        }
         jdbcTemplate.update(
                 createSQL,
-                id,
+                client.getIdClient(),
                 client.getName(),
                 client.getAge()
         );
-        client.setIdClient(id);
         return client;
     }
 
@@ -72,7 +65,7 @@ public class ClientRepository {
                 client.getAge(),
                 idClient
         );
-        return client;
+        return readClientById(idClient);
     }
 
     public void deleteClient(Integer idClient){
@@ -81,7 +74,7 @@ public class ClientRepository {
 
     public Optional<Integer> getLastInsertedId(){
         try{
-            Integer lastId = jdbcTemplate.queryForObject("select max(id) from reservation", Integer.class);
+            Integer lastId = jdbcTemplate.queryForObject("select max(id) from client", Integer.class);
             return Optional.ofNullable(lastId);
         } catch (EmptyResultDataAccessException e){
             return Optional.empty();
