@@ -13,10 +13,10 @@ import java.util.Optional;
 @Service
 public class ReservationService {
 
-    private ReservationRepository reservationRepository;
-    private RoomRepository roomRepository;
-    private RoomService roomService;
-    private ClientService clientService;
+    private final ReservationRepository reservationRepository;
+    private final RoomRepository roomRepository;
+    private final RoomService roomService;
+    private final ClientService clientService;
 
     public ReservationService(ReservationRepository repository, RoomService roomService, ClientService clientService, RoomRepository roomRepository) {
         this.reservationRepository = repository;

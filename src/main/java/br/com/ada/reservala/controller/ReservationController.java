@@ -14,8 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/reservation")
 public class ReservationController {
-    private ReservationService reservationService;
-    private ReservationMapper reservationMapper;
+    private final ReservationService reservationService;
+    private final ReservationMapper reservationMapper;
 
     public ReservationController(ReservationMapper reservationMapper, ReservationService reservationService) {
         this.reservationMapper = reservationMapper;

@@ -2,13 +2,9 @@ package br.com.ada.reservala.repository;
 
 import br.com.ada.reservala.domain.Room;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -16,17 +12,12 @@ public class RoomRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private String createSQL = "insert into room(roomNumber,type, price, available) values (?, ?, ?, ?)";
-    private String readSQL = "select * from room";
-    private String updateSQL = "update room set type = ?, price = ?, available = ? where roomNumber = ? ";
-    private String updateAvailableSQL = "update room set available = ? where roomNumber = ? ";
-    private String deleteSQL = "delete from room where roomNumber = ? ";
-
     public RoomRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     public Room createRoom(Room room){
+        String createSQL = "insert into room(roomNumber,type, price, available) values (?, ?, ?, ?)";
         jdbcTemplate.update(
                 createSQL,
                 room.getRoomNumber(),
@@ -44,6 +35,7 @@ public class RoomRepository {
                 rs.getBigDecimal("price"),
                 rs.getBoolean("available")
         ));
+        String readSQL = "select * from room";
         return jdbcTemplate.query(readSQL, rowMapper);
     }
 
@@ -61,6 +53,7 @@ public class RoomRepository {
     }
 
     public Room updateRoom(Room room, Integer roomNumber){
+        String updateSQL = "update room set type = ?, price = ?, available = ? where roomNumber = ? ";
         jdbcTemplate.update(
                 updateSQL,
                 room.getType(),
@@ -72,6 +65,7 @@ public class RoomRepository {
     }
 
     public void setAvailableFalseRoom(Integer roomNumber){
+        String updateAvailableSQL = "update room set available = ? where roomNumber = ? ";
         jdbcTemplate.update(
                 updateAvailableSQL,
                 false,
@@ -80,6 +74,7 @@ public class RoomRepository {
     }
 
     public void deleteRoom(Integer roomNumber){
+        String deleteSQL = "delete from room where roomNumber = ? ";
         jdbcTemplate.update(deleteSQL, roomNumber);
     }
 
