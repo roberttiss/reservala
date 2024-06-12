@@ -2,10 +2,8 @@ package br.com.ada.reservala.RoomController;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalToObject;
 import static org.hamcrest.Matchers.is;
@@ -17,7 +15,6 @@ public class GET_Room {
     //Testes End Point /room post
     @Test
     void numberRoomValidation() {
-        //List<Integer> roomNumber = Collections.singletonList(11);
         List<Integer> roomNumber = new ArrayList<>();
         roomNumber.add(101);
         roomNumber.add(102);
