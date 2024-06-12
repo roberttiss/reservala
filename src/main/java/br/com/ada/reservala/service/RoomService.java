@@ -29,21 +29,27 @@ public class RoomService {
     }
 
     public List<Room> readRoomByRoomNumber(Integer roomNumber) {
-        roomExists(roomNumber,new RoomNotFoundException("Room with number " + roomNumber + " not found."));
+        roomNoExists(roomNumber,new RoomNotFoundException("Room with number " + roomNumber + " not found."));
         return roomRepository.readRoomByRoomNumber(roomNumber);
 }
 
     public Optional<Room> updateRoom(Room room, Integer roomNumber) {
-        roomExists(roomNumber,new RoomNotFoundException("Room with number " + roomNumber + " not found."));
+        roomNoExists(roomNumber,new RoomNotFoundException("Room with number " + roomNumber + " not found."));
         return Optional.of(roomRepository.updateRoom(room,roomNumber));
     }
 
     public void deleteRoom(Integer roomNumber){
-        roomExists(roomNumber,new RoomNotFoundException("Room with number " + roomNumber + " not found."));
+        roomNoExists(roomNumber,new RoomNotFoundException("Room with number " + roomNumber + " not found."));
         roomRepository.deleteRoom(roomNumber);
     }
 
     public void roomExists(Integer roomNumber, RuntimeException exception){
+        if (roomRepository.roomExists(roomNumber)){
+            throw exception;
+        }
+    }
+
+    public void roomNoExists(Integer roomNumber, RuntimeException exception){
         if (!roomRepository.roomExists(roomNumber)){
             throw exception;
         }
