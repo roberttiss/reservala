@@ -1,10 +1,7 @@
 package br.com.ada.reservala.service;
 
 import br.com.ada.reservala.domain.Reservation;
-import br.com.ada.reservala.exception.ClientNotFoundException;
-import br.com.ada.reservala.exception.ReservationNotFoundException;
-import br.com.ada.reservala.exception.RoomNotFoundException;
-import br.com.ada.reservala.repository.ClientRepository;
+import br.com.ada.reservala.exception.*;
 import br.com.ada.reservala.repository.ReservationRepository;
 import br.com.ada.reservala.repository.RoomRepository;
 import org.springframework.stereotype.Service;
@@ -18,22 +15,28 @@ public class ReservationService {
 
     private ReservationRepository reservationRepository;
     private RoomRepository roomRepository;
-    private ClientRepository clientRepository;
+    private RoomService roomService;
+    private ClientService clientService;
 
-    public ReservationService(ReservationRepository repository, ClientRepository clientRepository, RoomRepository roomRepository) {
+    public ReservationService(ReservationRepository repository, RoomService roomService, ClientService clientService, RoomRepository roomRepository) {
         this.reservationRepository = repository;
-        this.clientRepository = clientRepository;
+        this.roomService = roomService;
         this.roomRepository = roomRepository;
-
+        this.clientService = clientService;
     }
 
     public Reservation createReservation(Reservation reservation){
-        if (!clientRepository.existsClient(reservation.getIdClient())){
-            throw new ClientNotFoundException("Client with id " + reservation.getIdClient() + " not found.");
-        }
-        if (!roomRepository.roomExists(reservation.getRoomNumber())){
-                    throw new RoomNotFoundException("Room with number " + reservation.getRoomNumber() + " not found.");
-        }
+        clientService.existsClient(reservation.getIdClient(), new ClientNotFoundException("Client with id " + reservation.getIdClient() + " not found."));
+        roomService.roomExists(reservation.getRoomNumber(),new RoomNotFoundException("Room with number " + reservation.getRoomNumber() + " not found."));
+        roomService.roomIsAvalaible(reservation.getRoomNumber(),new RoomNotAvailableException("Room with number " + reservation.getRoomNumber() + " not found."));
+        verifyRoomIsAvailableInDateRequested(reservation.getRoomNumber(), reservation);
+        verifyDateIsBeforeNow(reservation);
+
+        int id = reservationRepository.getLastInsertedId().orElse(0) + 1;
+        reservation.setIdReservation(id);
+
+        verifyDateIsNow(reservation);
+
         return reservationRepository.createReservation(reservation);
     }
 
@@ -42,31 +45,56 @@ public class ReservationService {
     }
 
     public List<Reservation> readReservationsByClientId(Integer idClient){
-        if (!clientRepository.existsClient(idClient)){
-            throw new ClientNotFoundException("Client with id " + idClient + " not found.");
-        }
         return reservationRepository.readReservationByClientId(idClient);
     }
 
     public Optional<Reservation> readReservationByReservationId(Integer idReservation){
-        if (!reservationRepository.existsReservation(idReservation)){
-            throw new ReservationNotFoundException("Reservation with id " + idReservation + " not found.");
-        }
+        verifyReservationExists(idReservation);
         return Optional.of(reservationRepository.readReservationByReservationId(idReservation));
     }
 
     public void deleteReservation(Integer idReservation){
-        if (!reservationRepository.existsReservation(idReservation)){
-            throw new ReservationNotFoundException("Reservation with id " + idReservation+ " not found.");
-        }
+        verifyReservationExists(idReservation);
         reservationRepository.deleteReservation(idReservation);
     }
 
     public Optional<Reservation> updateReservation(Reservation reservation, Integer idReservation){
-        if (!reservationRepository.existsReservation(idReservation)){
-            throw new ReservationNotFoundException("Reservation with id " + idReservation + " not found.");
-        }
+        verifyReservationExists(idReservation);
         return Optional.of(reservationRepository.updateReservation(reservation,idReservation));
-}
+    }
+
+    private void verifyReservationExists(int idReservartion) {
+        if (!reservationRepository.existsReservation(idReservartion)){
+            throw new ReservationNotFoundException("Reservation with id " + idReservartion + " not found.");
+        }
+    }
+
+    private void verifyDateIsNow(Reservation reservation){
+        if (reservation.getCheckIn().equals(LocalDate.now())){
+            roomRepository.setAvailableFalseRoom(reservation.getRoomNumber());
+        }
+    }
+
+    private void verifyDateIsBeforeNow(Reservation reservation){
+        if (reservation.getCheckIn().isBefore(LocalDate.now())){
+            throw new RoomNotAvailableException("Select a date for reservation from " + LocalDate.now() + ".");
+        }
+    }
+
+    private void verifyRoomIsAvailableInDateRequested(int roomNumber, Reservation reservation) {
+            List<LocalDate> datesCheckIn = reservationRepository.getCheckIn(roomNumber);
+            List<LocalDate> datesCheckOut = reservationRepository.getCheckOut(roomNumber);
+            LocalDate checkOut = reservation.getCheckOut();
+                for (LocalDate dateCheckIn: datesCheckIn){
+                    for (LocalDate dateCheckOut: datesCheckOut){
+                        boolean flagOut = checkOut.isBefore(dateCheckOut) | checkOut.equals(dateCheckOut) && checkOut.isAfter(dateCheckIn);
+                            if (flagOut){
+                                throw new RoomNotAvailableException("Room with number " + roomNumber + " not available in date specific");
+                            }
+                    }
+                }
+        }
 
 }
+
+

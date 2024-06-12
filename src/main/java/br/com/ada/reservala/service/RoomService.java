@@ -20,9 +20,7 @@ public class RoomService {
     }
 
     public Room createRoom(Room room){
-        if (roomRepository.roomExists(room.getRoomNumber())){
-            throw new IdAlreadyExistsException("Room with number " + room.getRoomNumber() + " already exists.");
-        }
+        roomExists(room.getRoomNumber(),new IdAlreadyExistsException("Room with number " + room.getRoomNumber() + " already exists."));
         return roomRepository.createRoom(room);
     }
 
@@ -31,33 +29,34 @@ public class RoomService {
     }
 
     public List<Room> readRoomByRoomNumber(Integer roomNumber) {
-    if (!roomRepository.roomExists(roomNumber)){
-        throw new RoomNotFoundException("Room with number " + roomNumber + " not found.");
-    }
-    return roomRepository.readRoomByRoomNumber(roomNumber);
+        roomExists(roomNumber,new RoomNotFoundException("Room with number " + roomNumber + " not found."));
+        return roomRepository.readRoomByRoomNumber(roomNumber);
 }
 
     public Optional<Room> updateRoom(Room room, Integer roomNumber) {
-        if (!roomRepository.roomExists(roomNumber)){
-            throw new RoomNotFoundException("Room with number " + roomNumber + " not found.");
-        }
+        roomExists(roomNumber,new RoomNotFoundException("Room with number " + roomNumber + " not found."));
         return Optional.of(roomRepository.updateRoom(room,roomNumber));
     }
 
     public void deleteRoom(Integer roomNumber){
-        if (!roomRepository.roomExists(roomNumber)){
-            throw new RoomNotFoundException("Room with number " + roomNumber + " not found.");
-        }
+        roomExists(roomNumber,new RoomNotFoundException("Room with number " + roomNumber + " not found."));
         roomRepository.deleteRoom(roomNumber);
     }
 
-    public Double getOcupation(){
-        double allRoms = roomRepository.getNumberOfRooms();
-        if(allRoms == 0){
-            return 0.0;
+    public void roomExists(Integer roomNumber, RuntimeException exception){
+        if (!roomRepository.roomExists(roomNumber)){
+            throw exception;
         }
-        double ocupiedRooms = roomRepository.getNumberOfOccupiedRooms();
-        return (ocupiedRooms / allRoms) * 100;
+    }
+
+    public void roomIsAvalaible(Integer roomNumber, RuntimeException exception){
+        if (!roomRepository.roomExists(roomNumber)){
+            throw exception;
+        }
+    }
+
+    public Double getOcupation(){
+        return roomRepository.getOcupation();
     }
 
     public Double getRevenue(){

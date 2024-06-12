@@ -20,8 +20,10 @@ public class ClientService {
 
     public Client createClient(Client client){
         if (clientRepository.existsClient(client.getIdClient())){
-            throw new IdAlreadyExistsException("Client with id " + client.getIdClient() +" already exists.");
+            existsClient(client.getIdClient(), new IdAlreadyExistsException("Client with id " + client.getIdClient() +" already exists."));
         }
+        int id = clientRepository.getLastInsertedId().orElse(0) + 1;
+        client.setIdClient(id);
         return clientRepository.createClient(client);
     }
 
@@ -30,24 +32,24 @@ public class ClientService {
     }
 
     public Optional<Client> redClientById(Integer idClient){
-        if (!clientRepository.existsClient(idClient)){
-            throw new ClientNotFoundException("Client with id " + idClient + " not found.");
-        }
+        existsClient(idClient,new ClientNotFoundException("Client with id " + idClient + " not found."));
         return Optional.of(clientRepository.readClientById(idClient));
     }
 
     public Optional<Client> updateClient(Client client, Integer idClient){
-        if (!clientRepository.existsClient(idClient)){
-            throw new ClientNotFoundException("Client with id " + idClient + " not found.");
-        }
+        existsClient(idClient,new ClientNotFoundException("Client with id " + idClient + " not found."));
         return Optional.of(clientRepository.udpateClient(client,idClient));
     }
 
     public void deleteClient(Integer idClient){
-        if (!clientRepository.existsClient(idClient)){
-            throw new ClientNotFoundException("Client with id " + idClient + " not found.");
-        }
+        existsClient(idClient,new ClientNotFoundException("Client with id " + idClient + " not found."));
         clientRepository.deleteClient(idClient);
+    }
+
+    public void existsClient(int idClient, RuntimeException exception)  {
+        if (!clientRepository.existsClient(idClient)){
+            throw exception;
+        }
     }
 
 }
