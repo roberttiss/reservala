@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
-import javax.management.Query;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -18,16 +17,12 @@ public class ReservationRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private final String createSQL = "insert into reservation(id, idClient, roomNumber, checkIn, checkOut) values (?, ?, ?, ?, ?)";
-    private final String readSQL = "select * from reservation";
-    private final String updateSQL = "update reservation set  roomNumber = ?, checkIn = ?, checkOut = ? where id = ?";
-    private final String deleteSQL = "delete from reservation where id = ?";
-
     public ReservationRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     public Reservation createReservation(Reservation reservation){
+        String createSQL = "insert into reservation(id, idClient, roomNumber, checkIn, checkOut) values (?, ?, ?, ?, ?)";
         jdbcTemplate.update(
                 createSQL,
                 reservation.getIdReservation(),
@@ -48,6 +43,7 @@ public class ReservationRepository {
                 rs.getDate("checkOut").toLocalDate()
         ));
 
+        String readSQL = "select * from reservation";
         return jdbcTemplate.query(readSQL,rowMapper);
     }
 
@@ -87,6 +83,7 @@ public class ReservationRepository {
 }
 
     public Reservation updateReservation(Reservation reservation, Integer idReservation){
+        String updateSQL = "update reservation set  roomNumber = ?, checkIn = ?, checkOut = ? where id = ?";
         jdbcTemplate.update(
                 updateSQL,
                 reservation.getRoomNumber(),
@@ -98,13 +95,10 @@ public class ReservationRepository {
     }
 
     public void deleteReservation(Integer idReservation){
+        String deleteSQL = "delete from reservation where id = ?";
         jdbcTemplate.update(
                 deleteSQL,idReservation
         );
-    }
-
-    public LocalDate getCheckouDate(int roomNumber){
-        return jdbcTemplate.queryForObject("select checkOut from reservation where roomNumber = ? order by checkOut desc limit 1", LocalDate.class,roomNumber);
     }
 
     public Optional<Integer> getLastInsertedId(){
@@ -125,16 +119,14 @@ public class ReservationRepository {
         String sql = "select * from reservation where roomNumber = ?";
         RowMapper<LocalDate> rowMapper = (rs, rowNum) -> rs.getDate("checkIn").toLocalDate();
 
-        List<LocalDate> listCheckIn = jdbcTemplate.query(sql,rowMapper,roomNumber);
-        return listCheckIn;
+        return jdbcTemplate.query(sql,rowMapper,roomNumber);
     }
 
     public List<LocalDate> getCheckOut(Integer roomNumber){
         String sql = "select * from reservation where roomNumber = ?";
         RowMapper<LocalDate> rowMapper = (rs, rowNum) -> rs.getDate("checkOut").toLocalDate();
 
-        List<LocalDate> listCheckOut = jdbcTemplate.query(sql,rowMapper,roomNumber);
-        return listCheckOut;
+        return jdbcTemplate.query(sql,rowMapper,roomNumber);
     }
 
 

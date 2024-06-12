@@ -34,10 +34,10 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handledMethodArgumentNotValidException(MethodArgumentNotValidException ex){
-        String mesage = ex.getBindingResult().getAllErrors().stream()
+        String message = ex.getBindingResult().getAllErrors().stream()
                 .map(ObjectError::getDefaultMessage)
                 .collect(Collectors.joining("\n"));
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mesage);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
     }
 
     @ExceptionHandler(ReservationNotFoundException.class)

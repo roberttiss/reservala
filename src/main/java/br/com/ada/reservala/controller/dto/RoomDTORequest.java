@@ -1,6 +1,5 @@
 package br.com.ada.reservala.controller.dto;
 
-import jdk.jfr.BooleanFlag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,16 +1,11 @@
 package br.com.ada.reservala.repository;
 
 import br.com.ada.reservala.domain.Client;
-import br.com.ada.reservala.domain.Reservation;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,16 +14,12 @@ public class ClientRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private final String createSQL = "insert into client(id,name, age) values (?,?, ?)";
-    private final String readSQL = "select * from client";
-    private final String updateSQL = "update client set name = ?, age = ? where id = ? ";
-    private final String deleteSQL = "delete from client where id = ?";
-
     public ClientRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     public Client createClient(Client client){
+        String createSQL = "insert into client(id,name, age) values (?,?, ?)";
         jdbcTemplate.update(
                 createSQL,
                 client.getIdClient(),
@@ -44,6 +35,7 @@ public class ClientRepository {
                 rs.getString("name"),
                 rs.getInt("age")
         ));
+        String readSQL = "select * from client";
         return jdbcTemplate.query(readSQL,rowMapper);
     }
 
@@ -59,6 +51,7 @@ public class ClientRepository {
     return jdbcTemplate.queryForObject(sql, rowMapper, idClient);
 }
     public Client udpateClient(Client client, Integer idClient){
+        String updateSQL = "update client set name = ?, age = ? where id = ? ";
         jdbcTemplate.update(
                 updateSQL,
                 client.getName(),
@@ -69,6 +62,7 @@ public class ClientRepository {
     }
 
     public void deleteClient(Integer idClient){
+        String deleteSQL = "delete from client where id = ?";
         jdbcTemplate.update(deleteSQL,idClient);
     }
 
