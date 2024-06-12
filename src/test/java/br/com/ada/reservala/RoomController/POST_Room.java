@@ -1,4 +1,4 @@
-package br.com.ada.reservala.Quartos;
+package br.com.ada.reservala.RoomController;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ public class POST_Room {
         given()
                 .log().all()
                 .contentType("application/json")
-                .body("{\"roomNumber\": \"13\",\"type\":\"Solteiro\",\"price\":100,\"avalaible\":\"true\"}")
+                .body("{\"roomNumber\": \"111\",\"type\":\"Double\",\"price\":100,\"available\":true}")
                 .when()
                     .post(Endpoint)
                 .then()
