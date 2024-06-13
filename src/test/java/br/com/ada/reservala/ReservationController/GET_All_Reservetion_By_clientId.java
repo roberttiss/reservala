@@ -6,14 +6,14 @@ public class GET_All_Reservetion_By_clientId {
 
 
     String Endpoint = "http://localhost:8080/reservation";
-    String ParamsEndpoint = "/";
-     int ClientId = 6;
-    int idReservation = 1;
+    String ParamsEndpoint = "/client";
+     String ClientId = "/6";
+    String idReservation = "/1";
     @Test
     void GetAllReservationWithID(){
 
             given()
-                    .when().get(Endpoint + ParamsEndpoint+idReservation+ParamsEndpoint+ClientId)
+                    .when().get(Endpoint+ ParamsEndpoint+ClientId)
                     .then()
                     .log().all()
                     .assertThat()

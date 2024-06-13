@@ -4,22 +4,17 @@ import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
-public class GET_Ocupation {
+public class GET_Renevue {
     String endpoint = "http://localhost:8080/room";
-    String endPoint= "/ocupation";
+    String endPoint= "/revenue";
 
     @Test
-    void CheckOcupation() {
-
+    void CheckOcupation(){
         RequestSpecification httpRequest = RestAssured.given();
-        Response response = httpRequest.request(Method.GET, endpoint + endPoint);
+        Response response = httpRequest.request(Method.GET,endpoint+endPoint);
         String responseBodyAsString = response.getBody().asString();
-        System.out.println(responseBodyAsString);
-
+        System.out.println("Movimentaçao total: "+responseBodyAsString);
     }
-
 }
