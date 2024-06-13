@@ -13,11 +13,14 @@ public class PUT_Room {
             given()
                     .log().all()
                     .contentType("application/json")
-                    .body("{\"roomNumber\": \"12\",\"type\":\"Solteiro\",\"price\":6700,\"avalaible\": true}")
+                    .body("{\"idReservation\":1,\"idClient\":6,\"roomNumber\":107,\"checkIn\":\"2026-12-12\",\"checkOut\":\"2027-12-10\"}")
                     .when()
                     .put(endpoint+complement)
                     .then()
                     .log().all();
         }
+
     }
+
+
 

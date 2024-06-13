@@ -1,7 +1,5 @@
 package br.com.ada.reservala.RoomController;
-
 import org.junit.jupiter.api.Test;
-
 import static io.restassured.RestAssured.given;
 
 public class POST_Room {
