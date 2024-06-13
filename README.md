@@ -68,8 +68,8 @@ O projeto **Reserva Lá** é uma aplicação que permite o gerenciamento de quar
      - `DELETE /reservation/{id}`: Cancela uma reserva
 
    - Relatórios:
-     - `GET /ocupation`: Retorna o relatório de ocupação
-     - `GET /renevue`: Retorna o relatório de receitas
+     - `GET /room/ocupation`: Retorna o relatório de ocupação
+     - `GET /room/revenue`: Retorna o relatório de receitas
 
 ## Testes Automatizados Implementados
 
